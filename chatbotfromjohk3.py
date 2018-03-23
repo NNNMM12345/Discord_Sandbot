@@ -9,8 +9,35 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 import platform
 import wikipedia
+from pathlib import Path
+import os
+import time
+########################################################################################################################
+#FUNCTIONS
 
-API_KEY_NAME = "apiKey.txt"
+home = str(Path.home())
+
+# Find will find the path to the api key from your home path
+
+
+def find(name, path):
+    start_time = time.time()
+    print("Searching for an api key from: " + home + "...\nThis can take sometime")
+    for root, dirs, files in os.walk(path):
+        if name in files:
+            print("Time spend searching was --- %s seconds ---" % (time.time() - start_time))
+            return os.path.join(root, name)
+
+
+with open(find("apiKey.txt", home), 'r') as f:
+    # Api list is the api in a list format
+    apilist = f.readlines()
+    # .join will convert the list to a string
+    print("Api key: " + ''.join(apilist))
+    API_KEY_NAME = ''.join(apilist)
+
+########################################################################################################################
+# THE BOT
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 client = Bot(description="Sandbot#1665", command_prefix="Sandbot", pm_help = False)
@@ -90,14 +117,10 @@ async def on_message(message):
         else:
              await client.send_message(message.channel, "Search for your artist like this\n !album [artist]")
 
-# This function reads the API key from the file with the given name.
-def get_api_key(file_name):
-    file = open(file_name, "r")
-    return file.read()
-
-# Passes in the API key to client.run() to initialize the bot.
-api_key = get_api_key(API_KEY_NAME)
-client.run(api_key)
+# client runs api key securely implemented by johk3
+client.run(API_KEY_NAME)
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
+########################################################################################################################
+#END
