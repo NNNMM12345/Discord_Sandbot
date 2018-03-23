@@ -1,3 +1,7 @@
+# Ignore API key file.
+# DO NOT REMOVE this declaration unless you are absolutely sure what you're doing and have cleared it with the team.
+apiKey.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

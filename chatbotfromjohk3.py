@@ -10,6 +10,7 @@ from discord.ext import commands
 import platform
 import wikipedia
 
+API_KEY_NAME = "apiKey.txt"
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 client = Bot(description="Sandbot#1665", command_prefix="Sandbot", pm_help = False)
@@ -89,8 +90,14 @@ async def on_message(message):
         else:
              await client.send_message(message.channel, "Search for your artist like this\n !album [artist]")
 
-# Here is the bots token code
-client.run('NDI2NDQ4MDEwMTQ3Mzk3NjMy.DZWIpQ.iiTCGt1YUhxWjWXtketJ4z89TWs')
+# This function reads the API key from the file with the given name.
+def get_api_key(file_name):
+    file = open(file_name, "r")
+    return file.read()
+
+# Passes in the API key to client.run() to initialize the bot.
+api_key = get_api_key(API_KEY_NAME)
+client.run(api_key)
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
