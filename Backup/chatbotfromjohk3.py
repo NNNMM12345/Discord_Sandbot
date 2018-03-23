@@ -90,7 +90,7 @@ async def on_message(message):
              await client.send_message(message.channel, "Search for your artist like this\n !album [artist]")
 
 # Here is the bots token code
-client.run('NDI2NDQ4MDEwMTQ3Mzk3NjMy.DZWIpQ.iiTCGt1YUhxWjWXtketJ4z89TWs')
+client.run(tokenhere)
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
