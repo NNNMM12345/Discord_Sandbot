@@ -9,8 +9,37 @@ from discord.ext.commands import Bot
 from discord.ext import commands
 import platform
 import wikipedia
-import math
+from pathlib import Path
+import os
+import time
+import re
 
+########################################################################################################################
+#FUNCTIONS
+
+home = str(str(Path.home()) + "\\Desktop")
+
+# Find will find the path to the api key from your home path
+
+
+def find(name, path):
+    start_time = time.time()
+    print("Searching for an api key from: " + home + "...\nThis can take sometime")
+    for root, dirs, files in os.walk(path):
+        if name in files:
+            print("Time spend searching was --- %s seconds ---" % (time.time() - start_time))
+            return os.path.join(root, name)
+
+
+with open(find("apiKey.txt", home), 'r') as f:
+    # Api list is the api in a list format
+    apilist = f.readlines()
+    # .join will convert the list to a string
+    print("Api key: " + ''.join(apilist))
+    API_KEY_NAME = ''.join(apilist)
+
+########################################################################################################################
+# THE BOT
 
 # Here you can modify the bot's prefix and description and wether it sends help in direct messages or not.
 client = Bot(description="Sandbot#1665", command_prefix="Sandbot", pm_help = False)
@@ -19,8 +48,8 @@ client = Bot(description="Sandbot#1665", command_prefix="Sandbot", pm_help = Fal
 # Do not mess with it because the bot can break, if you wish to do so, please consult me or someone trusted.
 @client.event
 async def on_ready():
-    print("Logged in as "+client.user.name+" (ID:"+client.user.id+") | Connected to "+str(len(client.servers))+" servers | Connected to "+str(len(set(client.get_all_members())))+" users")
-    print("--------")
+    print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
+    print('--------')
     print('Current Discord.py Version: {} | Current Python Version: {}'.format(discord.__version__, platform.python_version()))
     print('--------')
     print('Usemessage.content[3:] this link to invite {}:'.format(client.user.name))
@@ -29,56 +58,39 @@ async def on_ready():
     print('Support Discord Server: https://discord.gg/qSpwrdq')
     print('Github Link: https://github.com/NNNMM12345/Discord_Sandbot')
     print('--------')
-    print('You are running Sand-bot v1.1')
-    print('Created by The FuskerBrothers Software Group')
-    print("Thank you for using our Sand-Bot")
-    print("If you have any business inquiers or questions email...")
+    print('You are running Sandbot v1.05')
+    print('Created by The FuskerBrothers')
     return await client.change_presence(game=discord.Game(name='Sandboxing...'))
 
 
 @client.event
 async def on_message(message):
-    if message.content.startswith("!messages"):
+    if message.content.startswith('!messages'):
         counter = 0
-        tmp = await client.send_message(message.channel, "Calculating messages...")
+        tmp = await client.send_message(message.channel, 'Calculating messages...')
         async for log in client.logs_from(message.channel, limit=100):
             if log.author == message.author:
                 counter += 1
 
-        await client.edit_message(tmp, "You have {} messages.".format(counter))
+        await client.edit_message(tmp, 'You have {} messages.'.format(counter))
 
-    elif message.content.startswith("!flip"):
-        await client.send_message(message.channel, "Flipping...")
-        await client.send_message(message.channel, choice(["HEADS", "TAILS"]))\
+    elif message.content.startswith('!flip'):
+        await client.send_message(message.channel, 'Flipping...')
+        await client.send_message(message.channel, choice(['HEADS', 'TAILS']))
 
-    elif message.content.startswith("!roll"):
-        await client.send_message(message.channel, "Rolling...")
-        await client.send_message(message.channel, choice(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]))\
-
-    elif message.content.startswith("!do math"):
-        await client.send_message(message.channel, int(message.content[8:]))
-        await client.send_message(message.channel, "Calculations running...")
-        side1 = int(input("Enter side 1: "))
-        side2 = int(input("Enter side 2: "))
-        side3 = int(input("Enter side 3: "))
-        s = (side1 + side2 + side3) / 2
-        area = s * (s - side1) * (s - side2) * (s - side3)
-        area_final = math.sqrt(area)
-        print(area)\
-
-    elif message.content.startswith("!wp"):
+    elif message.content.startswith('!wp'):
         if message.content[3:]:
             try:
                 await client.send_message(message.channel, wikipedia.summary(str(message.content[3:]), sentences=1))
             except:
                 await client.send_message(message.channel, "Can't find the thing you were looking for...")
         else:
-            await client.send_message(message.channel, "I need an input...")
+            await client.send_message(message.channel, "I need input...")
 
-    elif message.content.startswith("!help"):
-        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches albums from an artist\n!roll = rolls a die\n!do math = do some math")
+    elif message.content.startswith('!help'):
+        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches albums from an artist\n!do math = just do math")
 
-    elif message.content.startswith("!guess"):
+    elif message.content.startswith('!guess'):
         if message.content[6:]:
             try:
                 answer = randint(1, 100)
@@ -96,7 +108,7 @@ async def on_message(message):
         else:
             await client.send_message(message.channel, "Guess works like this !guess [number] it has to be in the range from 1-100")
 
-    elif message.content.startswith("!albums"):
+    elif message.content.startswith('!albums'):
         if message.content[7:]:
             try:
                 user = message.content[7:]
@@ -107,8 +119,20 @@ async def on_message(message):
         else:
              await client.send_message(message.channel, "Search for your artist like this\n !album [artist]")
 
-# Here is the bots token code
-client.run("NDI2NDQ4MDEwMTQ3Mzk3NjMy.DZWIpQ.iiTCGt1YUhxWjWXtketJ4z89TWs")
+    elif message.content.startswith('!lyrics'):
+        try:
+            if message.content[8:]:
+                artist = re.split(r'[/]', str(message.content[8:]), re.I|re.M)
+                print(artist)
+                await client.send_message(message.channel, PyLyrics.getLyrics(str(artist[0]), str(artist[1])))
+            else:
+                await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work")
+        except Exception as e:
+            await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
+# client runs api key securely implemented by johk3
+client.run(API_KEY_NAME)
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
+########################################################################################################################
+#END
