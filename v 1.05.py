@@ -88,7 +88,9 @@ async def on_message(message):
             await client.send_message(message.channel, "I need input...")
 
     elif message.content.startswith('!help'):
-        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches albums from an artist\n!do math = just do math")
+        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = "
+                                                   "FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches "
+                                                   "albums from an artist\n!lyrics = Searches lyrics from a song")
 
     elif message.content.startswith('!guess'):
         if message.content[6:]:
@@ -130,7 +132,7 @@ async def on_message(message):
         except Exception as e:
             await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
 # client runs api key securely implemented by johk3
-client.run(API_KEY_NAME)
+client.run(str(API_KEY_NAME))
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
