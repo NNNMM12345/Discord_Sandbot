@@ -21,7 +21,6 @@ import math
 home = str(str(Path.home()) + "\\Desktop")
 
 # Find will find the path to the api key from your home path
-print('test')
 
 def find(name, path):
     start_time = time.time()
@@ -35,7 +34,6 @@ def find(name, path):
 with open(find("apiKey.txt", home), 'r') as f:
     # Api list is the api in a list format
     apilist = f.readlines()
-    print(apilist)
     # .join will convert the list to a string
     print("Api key: " + ''.join(apilist))
     API_KEY_NAME = ''.join(apilist)
