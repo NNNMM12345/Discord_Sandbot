@@ -18,5 +18,6 @@ A Sandbox like Discord bot with many many features.
 	* Will find are of a triangle.
 
 And many more features.... this is just the start.
+Twitter:[@FuskerBrothers](https://twitter.com/FuskerBrothers) – fuskerbrothers@protonmail.com
 
 ## Version 1.09
