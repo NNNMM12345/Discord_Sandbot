@@ -13,6 +13,7 @@ from pathlib import Path
 import os
 import time
 import re
+import math
 
 ########################################################################################################################
 #FUNCTIONS
@@ -78,6 +79,31 @@ async def on_message(message):
         await client.send_message(message.channel, 'Flipping...')
         await client.send_message(message.channel, choice(['HEADS', 'TAILS']))
 
+    elif message.content.startswith("!area"):
+        try:
+            if message.content[6:]:
+                parameters = message.content[6:]
+                split_lines = parameters.split(" ")
+
+                num1 = int(split_lines[0])
+                num2 = int(split_lines[1])
+                num3 = int(split_lines[2])
+                s = (num1 + num2 + num3) / 2
+                area = s * (s - num1) * (s - num2) * (s - num3)
+                area_final = math.sqrt(area)
+                print(area_final)
+
+                await client.send_message(message.channel, area_final)
+            else:
+                await client.send_message(message.channel, "I need numbers, Example !area [number] [number] [number]")
+        except Exception as e:
+            await client.send_message(message.channel,
+                                      "I need numbers, Example !area [number] [number] [number]\nError Code: " + str(e))
+
+    elif message.content.startswith("!roll"):
+        await client.send_message(message.channel, "Rolling...")
+        await client.send_message(message.channel, choice(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]))
+
     elif message.content.startswith('!wp'):
         if message.content[3:]:
             try:
@@ -130,7 +156,7 @@ async def on_message(message):
         except Exception as e:
             await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
 # client runs api key securely implemented by johk3
-client.run(API_KEY_NAME)
+client.run(str(API_KEY_NAME))
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.

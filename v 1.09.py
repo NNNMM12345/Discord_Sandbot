@@ -81,20 +81,25 @@ async def on_message(message):
         await client.send_message(message.channel, choice(['HEADS', 'TAILS']))
 
     elif message.content.startswith("!area"):
-        if message.content[6:]:
-            parameters = message.content[6:]
-            split_lines = parameters.split(" ")
+        try:
+            if message.content[6:]:
+                parameters = message.content[6:]
+                split_lines = parameters.split(" ")
 
-            num1 = int(split_lines[0])
-            num2 = int(split_lines[1])
-            num3 = int(split_lines[2])
-            s = (num1 + num2 + num3) / 2
-            area = s * (s - num1) * (s - num2) * (s - num3)
-            area_final = math.sqrt(area)
-            print(area_final)
+                num1 = int(split_lines[0])
+                num2 = int(split_lines[1])
+                num3 = int(split_lines[2])
+                s = (num1 + num2 + num3) / 2
+                area = s * (s - num1) * (s - num2) * (s - num3)
+                area_final = math.sqrt(area)
+                print(area_final)
 
-            await client.send_message(message.channel, area_final)
-
+                await client.send_message(message.channel, area_final)
+            else:
+                await client.send_message(message.channel, "I need numbers, Example !area [number] [number] [number]")
+        except Exception as e:
+            await client.send_message(message.channel,
+                                      "I need numbers, Example !area [number] [number] [number]\nError Code: " + str(e))
     elif message.content.startswith("!roll"):
         await client.send_message(message.channel, "Rolling...")
         await client.send_message(message.channel, choice(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]))
