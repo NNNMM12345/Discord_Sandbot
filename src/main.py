@@ -18,8 +18,7 @@ import math
 ########################################################################################################################
 #FUNCTIONS
 
-home = str(str(Path.home()) + "\\Desktop")
-
+home = os.path.join(str(Path.home()), "Desktop")
 # Find will find the path to the api key from your home path
 
 def find(name, path):
