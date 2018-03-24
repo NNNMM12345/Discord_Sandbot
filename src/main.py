@@ -22,7 +22,6 @@ home = str(str(Path.home()) + "\\Desktop")
 
 # Find will find the path to the api key from your home path
 
-
 def find(name, path):
     start_time = time.time()
     print("Searching for an api key from: " + home + "...\nThis can take sometime")
@@ -48,7 +47,7 @@ client = Bot(description="Sandbot#1665", command_prefix="Sandbot", pm_help = Fal
 # This is what happens everytime the bot launches. In this case, it prints information like server count, user count the bot is connected to, and the bot id in the console.
 # Do not mess with it because the bot can break, if you wish to do so, please consult me or someone trusted.
 @client.event
-def on_ready():
+async def on_ready():
     print('Logged in as '+client.user.name+' (ID:'+client.user.id+') | Connected to '+str(len(client.servers))+' servers | Connected to '+str(len(set(client.get_all_members())))+' users')
     print('--------')
     print('Current Discord.py Version: {} | Current Python Version: {}'.format(discord.__version__, platform.python_version()))
