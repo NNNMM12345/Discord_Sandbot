@@ -1,6 +1,6 @@
 # Discord_Sandbot
 A Sandbox like Discord bot with many many features.
-![](head.png)
+![](src/assets/head.png)
 ## Features
 * !messages
 	* Displays messages for you.
