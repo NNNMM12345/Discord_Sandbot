@@ -18,7 +18,8 @@ import math
 ########################################################################################################################
 #FUNCTIONS
 
-# Find will find the path to the api key from your home path
+# Find will find the path to the api key from your home pat
+"""
 def find(name, path):
     start_time = time.time()
     print("Searching for an api key from: " + home + "...\nThis can take sometime")
@@ -29,17 +30,13 @@ def find(name, path):
         else:
             sys.exit("Could not find apiKey.text")
 
-
+"""
 try:
-    home = os.path.join(str(Path.home()), "Desktop")
-    key_path = find("apiKey.txt", home)
-    key_file = open(key_path, 'r')
+    key_file = open("apiKey.txt", 'r')
 except EnvironmentError:
-    print("Couldn't open " + home + ", no such file")
-else:
-    with key_file:
-        API_KEY = key_file.readline()
-
+    print("Couldn't open apiKey, no such file")
+with key_file:
+    API_KEY = key_file.readline()
 ########################################################################################################################
 # THE BOT
 
