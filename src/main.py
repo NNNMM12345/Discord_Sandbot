@@ -115,7 +115,7 @@ async def on_message(message):
             await client.send_message(message.channel, "I need input...")
 
     elif message.content.startswith('!help'):
-        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches albums from an artist\n!do math = just do math")
+        await client.send_message(message.channel, "COMMANDS YOU CAN USE\n!messages = Displays messages\n!flip = FLIPS a coin\n!wp = Searches from WIKIPEDIA\n!albums searches albums from an artist\n!math = just does math")
 
     elif message.content.startswith('!guess'):
         if message.content[6:]:
