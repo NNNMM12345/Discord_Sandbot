@@ -156,6 +156,13 @@ async def on_message(message):
                 await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work")
         except Exception as e:
             await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
+
+    elif message.content.startswith('!math'):
+        try:
+            await client.send_message(message.channel, eval(message.content[6:] ,{"__builtins__":None},{}))
+        except Exception as e:
+            await client.send_message(message.channel, message.content[6:] + "is not a valid expression")
+            
 # client runs api key securely implemented by johk3
 client.run(str(API_KEY))
 
