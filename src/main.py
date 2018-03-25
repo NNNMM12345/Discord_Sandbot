@@ -18,10 +18,7 @@ import math
 ########################################################################################################################
 #FUNCTIONS
 
-home = str(str(Path.home()) + "\\Desktop")
-
 # Find will find the path to the api key from your home path
-
 def find(name, path):
     start_time = time.time()
     print("Searching for an api key from: " + home + "...\nThis can take sometime")
@@ -29,14 +26,19 @@ def find(name, path):
         if name in files:
             print("Time spend searching was --- %s seconds ---" % (time.time() - start_time))
             return os.path.join(root, name)
+        else:
+            sys.exit("Could not find apiKey.text")
 
 
-with open(find("apiKey.txt", home), 'r') as f:
-    # Api list is the api in a list format
-    apilist = f.readlines()
-    # .join will convert the list to a string
-    print("Api key: " + ''.join(apilist))
-    API_KEY_NAME = ''.join(apilist)
+try:
+    home = os.path.join(str(Path.home()), "Desktop")
+    key_path = find("apiKey.txt", home)
+    key_file = open(key_path, 'r')
+except EnvironmentError:
+    print("Couldn't open " + home + ", no such file")
+else:
+    with key_file:
+        API_KEY = key_file.readline()
 
 ########################################################################################################################
 # THE BOT
@@ -154,8 +156,15 @@ async def on_message(message):
                 await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work")
         except Exception as e:
             await client.send_message(message.channel, "This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
+
+    elif message.content.startswith('!math'):
+        try:
+            await client.send_message(message.channel, eval(message.content[6:] ,{"__builtins__":None},{}))
+        except Exception as e:
+            await client.send_message(message.channel, message.content[6:] + "is not a valid expression")
+            
 # client runs api key securely implemented by johk3
-client.run(str(API_KEY_NAME))
+client.run(str(API_KEY))
 
 # The help command is currently set to be not be Direct Messaged.
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
