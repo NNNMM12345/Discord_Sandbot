@@ -3,10 +3,10 @@ from discord.ext import commands
 
 class Bot(commands.Bot):
     
-    def __init__(self, plugins):
+    def __init__(self, extensions):
         super().__init__(command_prefix='!', case_insensitive=True)
         # Load extension
-        for plugin in plugins:
+        for extension in extensions:
             try:
                 self.load_extension(extension)
             except Exception as e:
