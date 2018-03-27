@@ -32,7 +32,7 @@ def find(name, path):
 
 """
 try:
-    key_file = open("apiKey.txt", 'r')
+    key_file = open("discord_api_key", 'r')
 except EnvironmentError:
     print("Couldn't open apiKey, no such file")
 with key_file:
