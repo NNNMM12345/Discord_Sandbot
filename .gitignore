@@ -101,7 +101,6 @@ ENV/
 
 # mypy
 .mypy_cache/
-*.swp
 
-#api
-apiKey.txt
+#Remove secret for versionning
+discord_api_token
