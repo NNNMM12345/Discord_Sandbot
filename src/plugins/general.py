@@ -22,13 +22,16 @@ class General:
         await ctx.send(random.choice(['HEADS', 'TAILS']))
 
     @commands.command()
-    async def math(self, ctx, param: str):
+    async def math(self, ctx, *, param: str = None):
         "Solve basic mathematical operation"
-        print(param)
-        try:
-            await ctx.send(eval(param, {"__builtins__":None},{}))
-        except Exception as e:
-            await ctx.send(param + "is not a valid expression")
+        if param == None:
+            await ctx.send('Start easy... 1 + 1?')
+            await ctx.send('10')
+        else:
+            try:
+                await ctx.send(eval(param, {"__builtins__":None},{}))
+            except Exception as e:
+                await ctx.send(param + "is not a valid expression")
 
     @commands.command()
     async def roll(self, ctx):
@@ -37,11 +40,10 @@ class General:
         await ctx.send(random.choice(['1', '2', '3', '4', '5', '6']))
 
     @commands.command(aliases=['wp'])
-    async def wikipedia(self, ctx, *param: str):
+    async def wikipedia(self, ctx, *, param: str = None):
         "Search on wikipedia"
-        ' '.join(param)
         try: 
-            if len(param) == 0:
+            if param == None:
                 await ctx.send("You don't know what to search ? What about turtle?")
                 summary = wikipedia.summary("turtle", sentences=2)
             else:
@@ -69,9 +71,9 @@ class General:
                 await ctx.send("You definitely did something wrong:\n" + str(e))
 
     @commands.command()
-    async def lyrics(self, ctx, *param: str):
+    async def lyrics(self, ctx, *, param: str = None):
         try:
-            if len(param) == 0:
+            if param == None:
                 await ctx.send("This works like this: !lyrics artist/songname the / is required else it doesnt work")
             else:
                 artist, song = param.split('/')
@@ -80,9 +82,8 @@ class General:
             await ctx.send("This works like this: !lyrics artist/songname the / is required else it doesnt work\nError Code: " + str(e))
 
     @commands.command()
-    async def albums(self, ctx, *param: str):
-        param = ' '.join(param)
-        if len(param) == 0:
+    async def albums(self, ctx, *, param: str):
+        if param == None:
             await ctx.send( "Search for your artist like this\n !album [artist]")
         else:
             try:
