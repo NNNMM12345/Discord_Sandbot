@@ -1,34 +1,16 @@
-# -*- coding: utf-8 -*-
-# These are the dependecies. The bot depends on these to function, hence the name. Please do not change these unless your adding to them, because they can break the bot.
-import discord
-from random import randint
-from random import choice
-from PyLyrics import *
-import asyncio
-from discord.ext.commands import Bot
-from discord.ext import commands
-import platform
-import wikipedia
-from pathlib import Path
-import os
-import time
-import re
-import math
+from bot import Bot
+import settings.config
 
+plugins = []
+
+def main():
+    bot = Bot(plugins) 
+    bot.run(settings.config.DISCORD_TOKEN)
+
+if __name__ == '__main__':
+    main()
 ########################################################################################################################
 #FUNCTIONS
-
-# Find will find the path to the api key from your home pat
-"""
-def find(name, path):
-    start_time = time.time()
-    print("Searching for an api key from: " + home + "...\nThis can take sometime")
-    for root, dirs, files in os.walk(path):
-        if name in files:
-            print("Time spend searching was --- %s seconds ---" % (time.time() - start_time))
-            return os.path.join(root, name)
-        else:
-            sys.exit("Could not find apiKey.text")
 
 """
 try:
@@ -167,3 +149,4 @@ client.run(str(API_KEY))
 # If you would like to change that, change "pm_help = False" to "pm_help = True" on line 9.
 ########################################################################################################################
 #END
+"""

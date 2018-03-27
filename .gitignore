@@ -103,4 +103,4 @@ ENV/
 .mypy_cache/
 
 #Remove secret for versionning
-discord_api_key
+discord_api_token
