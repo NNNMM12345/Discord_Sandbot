@@ -9,11 +9,6 @@ from PyLyrics import *
 class General:
     def __init__(self, bot):
         self.bot = bot
-    
-    @commands.command()
-    async def ping(self, ctx):
-        "Reply !pong to !ping"
-        await ctx.send('!pong')
 
     @commands.command()
     async def flip(self, ctx):
@@ -92,6 +87,7 @@ class General:
                 await ctx.send(albums)
             except Exception as e:
                 await ctx.send("You did something wrong\n" + str(e))
- 
+
+
 def setup(bot):
     bot.add_cog(General(bot))

@@ -1,6 +1,6 @@
 import discord
 import youtube_dl
-
+import asyncio
 from discord.ext import commands
 
 # Suppress noise about console usage from errors
@@ -63,50 +63,76 @@ class Voice:
         await channel.connect()
 
     @commands.command()
-    async def play(self, ctx, *, query):
+    async def play(self, ctx, *, query: str=None):
         """Plays a file from the local filesystem"""
+        if query == None:
+            await ctx.send("Did you give me path to the file you want me to play?")
+            try:
+                await ctx.voice_client.disconnect()
+            except:
+                pass
+        else:
+            try:
+                source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
+                ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
 
-        source = discord.PCMVolumeTransformer(discord.FFmpegPCMAudio(query))
-        ctx.voice_client.play(source, after=lambda e: print('Player error: %s' % e) if e else None)
-
-        await ctx.send('Now playing: {}'.format(query))
+                await ctx.send('Now playing: {}\nDefault volume is: 0.5'.format(query))
+            except Exception as e:
+                await ctx.send("I need a file from the local filesystem\n" + "Error Code: " + str(e))
 
     @commands.command()
-    async def yt(self, ctx, *, url):
+    async def yt(self, ctx, *, url: str=None):
         """Plays from a url (almost anything youtube_dl supports)"""
+        if url == None:
+            await ctx.send("url?")
+            try:
+                await ctx.voice_client.disconnect()
+            except:
+                pass
+        else:
+            try:
+                async with ctx.typing():
+                    player = await YTDLSource.from_url(url, loop=self.bot.loop)
+                    ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
 
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop)
-            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-
-        await ctx.send('Now playing: {}'.format(player.title))
-
+                await ctx.send('Now playing: {}\nDefault volume is: 0.5'.format(player.title))
+            except Exception as e:
+                await ctx.send("You did something wrong.\n" + "Error Code: " + str(e))
     @commands.command()
-    async def stream(self, ctx, *, url):
+    async def stream(self, ctx, *, url: str=None):
         """Streams from a url (same as yt, but doesn't predownload)"""
+        if url == None:
+            await ctx.send("url?")
+            try:
+                await ctx.voice_client.disconnect()
+            except:
+                pass
+        else:
+            try:
+                async with ctx.typing():
+                    player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
+                    ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
 
-        async with ctx.typing():
-            player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
-            ctx.voice_client.play(player, after=lambda e: print('Player error: %s' % e) if e else None)
-
-        await ctx.send('Now playing: {}'.format(player.title))
-
+                await ctx.send('Now playing: {}\nDefault volume is: 0.5'.format(player.title))
+            except Exception as e:
+                await ctx.send("You did something wrong while trying to stream a video.\n" + "Error Code: " + str(e))
     @commands.command()
-    async def volume(self, ctx, volume: int):
+    async def volume(self, ctx, volume: str):
         """Changes the player's volume"""
 
         if ctx.voice_client is None:
             return await ctx.send("Not connected to a voice channel.")
 
-        ctx.voice_client.source.volume = volume
+        ctx.voice_client.source.volume = float(volume)
         await ctx.send("Changed volume to {}%".format(volume))
 
     @commands.command()
     async def stop(self, ctx):
         """Stops and disconnects the bot from voice"""
-
-        await ctx.voice_client.disconnect()
-
+        try:
+            await ctx.voice_client.disconnect()
+        except Exception as e:
+            await ctx.send("Is the bot connected to any voice channels?\n" + "Error Code: " + str(e))
     @play.before_invoke
     @yt.before_invoke
     @stream.before_invoke
