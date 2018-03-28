@@ -53,18 +53,19 @@ class General:
             await ctx.send("Bip bip, something went wrong. What are you looking for again?")
 
     @commands.command()
-    async def guess(self, ctx, param=None):
+    async def guess(self, ctx, param: str=None):
         if param == None:
             await ctx.send("Guess works like this !guess [number] it has to be in the range from 1-100")
         else:
             try:
+                guess = int(param)
                 answer = random.randint(1, 100)
-                if guess == answer:
+                if guess == int(answer):
                     await ctx.send("YOU WON!!! Answer was:" + str(answer))
-                elif guess < str(answer):
-                    await ctx.send("You were too high  \nAnswer:" + str(answer))
-                elif guess > str(answer):
+                elif guess < int(answer):
                     await ctx.send("You were too low  \nAnswer:" + str(answer))
+                elif guess > int(answer):
+                    await ctx.send("You were too high  \nAnswer:" + str(answer))
                 else:
                     await ctx.send("You did something wrong")
             except Exception as e:
@@ -84,13 +85,28 @@ class General:
     @commands.command()
     async def albums(self, ctx, *, param: str):
         if param == None:
-            await ctx.send( "Search for your artist like this\n !album [artist]")
+            await ctx.send("Search for your artist like this\n !album [artist]")
         else:
             try:
                 albums = PyLyrics.getAlbums(param)
                 await ctx.send(albums)
             except Exception as e:
                 await ctx.send("You did something wrong\n" + str(e))
+
+
+    @commands.command(pass_context=True)
+    async def yt(self, ctx, url):
+        try:
+            print(ctx, url)
+            author = ctx.message.author
+            voice_channel = author.voice_channel
+            vc = await commands.Bot.join_voice_channel(voice_channel)
+            ctx.send("Playing it:))")
+
+            player = await vc.create_ytdl_player(url)
+            player.start()
+        except Exception as e:
+            await ctx.send("Did you give me a link?\n" + "Error Code: " + str(e))
  
 def setup(bot):
     bot.add_cog(General(bot))
