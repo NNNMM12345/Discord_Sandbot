@@ -1,11 +1,11 @@
 from bot import Bot
 import settings.config
 
-extensions = ['plugins.general']
-#settings.config.DISCORD_TOKEN
+extensions = ['plugins.general', 'plugins.voice']
+
 def main():
     bot = Bot(extensions) 
-    bot.run("NDE0Mzc5OTg3NDA0MzI0ODc0.DZ0wjw.rXSbb1E07Np7sLSozAa3LG5OkLA")
+    bot.run(settings.config.DISCORD_TOKEN)
 
 if __name__ == '__main__':
     main()

@@ -92,21 +92,6 @@ class General:
                 await ctx.send(albums)
             except Exception as e:
                 await ctx.send("You did something wrong\n" + str(e))
-
-
-    @commands.command(pass_context=True)
-    async def yt(self, ctx, url):
-        try:
-            print(ctx, url)
-            author = ctx.message.author
-            voice_channel = author.voice_channel
-            vc = await commands.Bot.join_voice_channel(voice_channel)
-            ctx.send("Playing it:))")
-
-            player = await vc.create_ytdl_player(url)
-            player.start()
-        except Exception as e:
-            await ctx.send("Did you give me a link?\n" + "Error Code: " + str(e))
  
 def setup(bot):
     bot.add_cog(General(bot))

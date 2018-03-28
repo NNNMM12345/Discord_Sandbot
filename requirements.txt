@@ -2,3 +2,5 @@ git+https://github.com/Rapptz/discord.py@rewrite
 pylyrics
 asyncio
 wikipedia
+youtube-dl
+PyNaCl
