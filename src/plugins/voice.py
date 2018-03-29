@@ -100,7 +100,7 @@ class Voice:
                 await ctx.send("You did something wrong.\n" + "Error Code: " + str(e))
     @commands.command()
     async def stream(self, ctx, *, url: str=None):
-        """Streams from a url (same as yt, but doesn't predownload)"""
+        """Streams from a url in real time example: Twitch, Youtube etc"""
         if url == None:
             await ctx.send("url?")
             try:
@@ -118,7 +118,7 @@ class Voice:
                 await ctx.send("You did something wrong while trying to stream a video.\n" + "Error Code: " + str(e))
     @commands.command()
     async def volume(self, ctx, volume: str):
-        """Changes the player's volume"""
+        """Changes the player's volume(Default volume is 0.5)"""
 
         if ctx.voice_client is None:
             return await ctx.send("Not connected to a voice channel.")

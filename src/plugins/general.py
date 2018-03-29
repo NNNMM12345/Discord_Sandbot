@@ -18,10 +18,9 @@ class General:
 
     @commands.command()
     async def math(self, ctx, *, param: str = None):
-        "Solve basic mathematical operation"
+        "Solves basic mathematical operations"
         if param == None:
             await ctx.send('Start easy... 1 + 1?')
-            await ctx.send('10')
         else:
             try:
                 await ctx.send(eval(param, {"__builtins__":None},{}))
@@ -30,13 +29,13 @@ class General:
 
     @commands.command()
     async def roll(self, ctx):
-        "Roll a dice"
+        "Rolls a dice from 1 to 10"
         await ctx.send('Rolling...')
-        await ctx.send(random.choice(['1', '2', '3', '4', '5', '6']))
+        await ctx.send(random.choice(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']))
 
     @commands.command(aliases=['wp'])
     async def wikipedia(self, ctx, *, param: str = None):
-        "Search on wikipedia"
+        "Searches your thing on wikipedia"
         try: 
             if param == None:
                 await ctx.send("You don't know what to search ? What about turtle?")
@@ -49,6 +48,7 @@ class General:
 
     @commands.command()
     async def guess(self, ctx, param: str=None):
+        "!guess [number] it has to be in the range from 1-100"
         if param == None:
             await ctx.send("Guess works like this !guess [number] it has to be in the range from 1-100")
         else:
@@ -68,6 +68,7 @@ class General:
 
     @commands.command()
     async def lyrics(self, ctx, *, param: str = None):
+        "Search your lyrics like this !lyrics artist/song"
         try:
             if param == None:
                 await ctx.send("This works like this: !lyrics artist/songname the / is required else it doesnt work")
@@ -79,6 +80,7 @@ class General:
 
     @commands.command()
     async def albums(self, ctx, *, param: str):
+        "Searches for artist's all albums"
         if param == None:
             await ctx.send("Search for your artist like this\n !album [artist]")
         else:
