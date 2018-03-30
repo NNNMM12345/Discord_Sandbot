@@ -1,5 +1,5 @@
 # Discord_Sandbot
-A Sandbox like Discord bot with many many features.
+A Discord bot with many many features.
 ![](src/assets/head.png)
 ## Features
 * !messages
@@ -18,6 +18,6 @@ A Sandbox like Discord bot with many many features.
 	* Will find are of a triangle.
 
 And many more features.... this is just the start.
-Twitter:[@FuskerBrothers](https://twitter.com/FuskerBrothers) – fuskerbrothers@protonmail.com
+Twitter:[@FuskerBrothers](https://twitter.com/FuskerBrothers) â€“ fuskerbrothers@protonmail.com
 
 ## Version 1.09
