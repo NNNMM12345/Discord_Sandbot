@@ -100,7 +100,7 @@ class Voice:
                 await ctx.send("You did something wrong.\n" + "Error Code: " + str(e))
     @commands.command()
     async def stream(self, ctx, *, url: str=None):
-        """Streams from a url in real time example: Twitch, Youtube etc"""
+        """Streams in real time example: Twitch, Youtube etc"""
         if url == None:
             await ctx.send("url?")
             try:
