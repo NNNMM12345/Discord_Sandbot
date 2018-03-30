@@ -2,9 +2,9 @@ import discord
 from discord.ext import commands
 
 class Bot(commands.Bot):
-    
     def __init__(self, extensions):
-        super().__init__(command_prefix='!', case_insensitive=True)
+        super().__init__(description="Hello friend",command_prefix='!', case_insensitive=True)
+
         # Load extension
         for extension in extensions:
             try:

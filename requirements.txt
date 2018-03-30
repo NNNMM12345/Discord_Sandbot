@@ -4,3 +4,4 @@ asyncio
 wikipedia
 youtube-dl
 PyNaCl
+tweepy

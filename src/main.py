@@ -1,7 +1,7 @@
 from bot import Bot
 import settings.config
 
-extensions = ['plugins.general', 'plugins.voice']
+extensions = ['plugins.general', 'plugins.voice', 'plugins.twitter']
 
 def main():
     bot = Bot(extensions) 
