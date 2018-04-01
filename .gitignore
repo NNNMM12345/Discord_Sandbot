@@ -104,3 +104,4 @@ ENV/
 
 #Remove secret for versionning
 discord_api_token
+
