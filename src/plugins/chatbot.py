@@ -16,8 +16,8 @@ class TheChatBot:
         self.bot = bot
 
     @commands.command()
-    async def ask(self, ctx, something: str=None):
-        """!ask \"something\" from bot(remember the quotes)"""
+    async def ask(self, ctx,*, something: str=None):
+        """Just !ask something from the bot"""
         if something == None:
             await ctx.send("You need to give me some input...")
         else:
